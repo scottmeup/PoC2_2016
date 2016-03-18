@@ -12,6 +12,7 @@ except ImportError:
     import simplegui
 
 DEBUG_LRI = True
+DEBUG_SIT = True
 
 import poc_fifteen_gui
 
@@ -143,17 +144,16 @@ class Puzzle:
         # replace with your code
         width = self.get_width()
         height = self.get_height()
-        first_line = [self.get_number(target_row, dummy_x) for dummy_x in range(target_col+1, width)]
-        remaining_lines = [[self.get_number(dummy_y, dummy_x) for dummy_x in range(0, width)] for dummy_y in range(target_row, height)]
-        invariant_data = first_line
-        for line in remaining_lines:
-            invariant_data += line
-        if DEBUG_LRI:
-            print "first", first_line
-            print "remaining", remaining_lines
-            print "invariant_data", invariant_data
+        #first_line = [self.get_number(target_row, dummy_x) for dummy_x in range(target_col+1, width)]
+        #remaining_lines = [[self.get_number(dummy_y, dummy_x) for dummy_x in range(0, width)] for dummy_y in range(target_row, height)]
+        #invariant_data = first_line
+        #for line in remaining_lines:
+            #invariant_data += line
+        #if DEBUG_LRI:
+            #print "first", first_line
+            #print "remaining", remaining_lines
+            #print "invariant_data", invariant_data
         #eval current line
-        eval = True
         if self.get_number(target_row, target_col) == 0:
             pass
         else:
@@ -184,28 +184,32 @@ class Puzzle:
         Place correct tile at target position
         Updates puzzle and returns a move string
         """
-        assert lower_row_invariant()
+        #assert self.lower_row_invariant(target_row, target_col)
         #do some solve
         solution_string = ""
-        solved_tile_location = current_position(target_row, target_col)
-        zero_location = current_position(0, 0)
+        solved_tile_location = self.current_position(target_row, target_col)
+        zero_location = self.current_position(0, 0)
+        if DEBUG_SIT:
+            print "target_row, target_col", target_row, target_col
+            print "solved_tile_location", solved_tile_location
+            print "zero_location", zero_location
         if solved_tile_location[0] < target_row:
             while solved_tile_location[1] > zero_location[1]:
                 move = "l"
-                update_puzzle(move)
-                solution_string.append(move)
-                zero_location = current_position(0, 0)
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
             while solved_tile_location[1] < zero_location[1]:
                 move = "r"
-                update_puzzle(move)
-                solution_string.append(move)
-                zero_location = current_position(0, 0)
-            while solved_tile_location[0] < target_row:
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+            while solved_tile_location[0] < zero_location[0]:
                 move = "u"
-                update_puzzle(move)
-                solution_string.append(move)
-                zero_location = current_position(0, 0)
-        assert lower_row_invariant()
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+        #assert self.lower_row_invariant(target_row, target_col)
         return solution_string
 
     def solve_col0_tile(self, target_row):
@@ -279,12 +283,14 @@ class Puzzle:
         self.lower_row_invariant(coordinate_0[0], coordinate_0[1])
         return ""
 
+
 # Start interactive simulation (default layout)
 #poc_fifteen_gui.FifteenGUI(Puzzle(4, 4))
 #poc_fifteen_gui.FifteenGUI(Puzzle(2, 2))
+#p = Puzzle(4, 4)
 
 question_8 = Puzzle(4, 4)
-question_8_input_i = [4, 13, 1, 3, 5, 10, 2, 7, 8, 12, 6, 11, 9, 0, 14, 16]
+question_8_input_i = [4, 13, 1, 3, 5, 10, 2, 7, 8, 12, 6, 11, 9, 0, 14, 15]
 question_8_input_ii = [4, 0, 1, 3, 5, 13, 2, 7, 8, 10, 6, 11, 9, 12, 14, 15]
 question_8_input_iii = [5, 4, 1, 3, 8, 0, 2, 7, 10, 13, 6, 11, 9, 12, 14, 15]
 x = 0
@@ -292,7 +298,10 @@ for i in range(len(question_8._grid)):
     for j in range(len(question_8._grid[0])):
         question_8.set_number(i, j, question_8_input_i[x])
         x += 1
-poc_fifteen_gui.FifteenGUI(question_8)
+print question_8
+
+#poc_fifteen_gui.FifteenGUI(question_8)
+
 
 """
 def homework():
