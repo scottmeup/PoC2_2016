@@ -193,6 +193,21 @@ class Puzzle:
             print "target_row, target_col", target_row, target_col
             print "solved_tile_location", solved_tile_location
             print "zero_location", zero_location
+        #case: straight below
+        if solved_tile_location[1] == target_col:
+            count = 0
+            while zero_location[0] < solved_tile_location[0]:
+                move = "u"
+                self.update_puzzle(move)
+                solution_string += move
+                count +=1
+            while count > 0:
+                move = "lddru"
+                self.update_puzzle(move)
+                solution_string += move
+                count -= 1
+        """
+        #move 0 to target tile position
         if solved_tile_location[0] < target_row:
             while solved_tile_location[1] > zero_location[1]:
                 move = "l"
@@ -200,7 +215,8 @@ class Puzzle:
                 solution_string += move
                 zero_location = self.current_position(0, 0)
             while solved_tile_location[1] < zero_location[1]:
-                move = "r"
+                #can't move straight right... will break assertion                
+                move = "ur"
                 self.update_puzzle(move)
                 solution_string += move
                 zero_location = self.current_position(0, 0)
@@ -209,6 +225,19 @@ class Puzzle:
                 self.update_puzzle(move)
                 solution_string += move
                 zero_location = self.current_position(0, 0)
+        """
+        if DEBUG_SIT:
+            print solution_string
+            print self
+        #cycle target tile down to proper position
+        solved_tile_location = self.current_position(target_row, target_col)
+        while solved_tile_location != (target_row, target_col):
+            move = "lddru"
+            solution_string += move
+            self.update_puzzle(move)
+            solved_tile_location = self.current_position(target_row, target_col)
+            if DEBUG_SIT:
+                print self
         #assert self.lower_row_invariant(target_row, target_col)
         return solution_string
 
@@ -300,7 +329,7 @@ for i in range(len(question_8._grid)):
         x += 1
 print question_8
 
-#poc_fifteen_gui.FifteenGUI(question_8)
+poc_fifteen_gui.FifteenGUI(question_8)
 
 
 """
