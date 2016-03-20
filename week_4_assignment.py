@@ -193,19 +193,25 @@ class Puzzle:
             print "target_row, target_col", target_row, target_col
             print "solved_tile_location", solved_tile_location
             print "zero_location", zero_location
-        #case: straight below
+        #case: 0 is straight below target tile
         if solved_tile_location[1] == target_col:
             count = 0
-            while zero_location[0] < solved_tile_location[0]:
+            while zero_location[0] > solved_tile_location[0]:
                 move = "u"
                 self.update_puzzle(move)
                 solution_string += move
                 count +=1
-            while count > 0:
+                zero_location = self.current_position(0, 0)
+                if DEBUG_SIT:
+                    print zero_location[0], solved_tile_location[0]
+                    print self
+            while count > 1:
                 move = "lddru"
                 self.update_puzzle(move)
                 solution_string += move
                 count -= 1
+                if DEBUG_SIT:
+                    print self
         """
         #move 0 to target tile position
         if solved_tile_location[0] < target_row:
@@ -329,7 +335,7 @@ for i in range(len(question_8._grid)):
         x += 1
 print question_8
 
-poc_fifteen_gui.FifteenGUI(question_8)
+#poc_fifteen_gui.FifteenGUI(question_8)
 
 
 """
