@@ -1,14 +1,13 @@
 """
 Created on Sat Mar 19 04:34:37 2016
-
 @author: andrewscott
 Loyd's Fifteen puzzle - solver and visualizer
 Note that solved configuration has the blank (zero) tile in upper left
 Use the arrows key to swap this tile with its neighbors
 """
 try:
-    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui 
-except ImportError: 
+    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+except ImportError:
     import simplegui
 
 DEBUG_LRI = True
@@ -93,7 +92,7 @@ class Puzzle:
         """
         Locate the current position of the tile that will be at
         position (solved_row, solved_col) when the puzzle is solved
-        Returns a tuple of two integers        
+        Returns a tuple of two integers
         """
         solved_value = (solved_col + self._width * solved_row)
 
@@ -189,11 +188,17 @@ class Puzzle:
         solution_string = ""
         solved_tile_location = self.current_position(target_row, target_col)
         zero_location = self.current_position(0, 0)
+        move = ""
+        count = 0
         if DEBUG_SIT:
             print "target_row, target_col", target_row, target_col
             print "solved_tile_location", solved_tile_location
             print "zero_location", zero_location
-        #case: 0 is straight below target tile
+        #need some checks here to determine if the position is already solved
+
+
+
+        #case1: 0 tile is straight below location of tile being solved
         if solved_tile_location[1] == target_col:
             count = 0
             while zero_location[0] > solved_tile_location[0]:
@@ -212,6 +217,51 @@ class Puzzle:
                 count -= 1
                 if DEBUG_SIT:
                     print self
+        #case2: 0 tile is directly to the right of the tile being solved
+        if solved_tile_location[0] == target_row:
+            count = 0
+            while solved_tile_location[1] < target_col:
+                if DEBUG_SIT:
+                    print "case2: count += 1"
+                    print self
+                zero_location = self.current_position(0, 0)
+                solved_tile_location = self.current_position(target_row, target_col)
+                move = "l"
+                self.update_puzzle(move)
+                solution_string += move
+                count += 1
+            while count > 1:
+                if DEBUG_SIT:
+                    print "case2: count > 1"
+                    print self
+                move = "urrdl"
+                self.update_puzzle(move)
+                solution_string += move
+                count -= 1
+
+        #post cases check really belongs in solve col_0 tile
+        #check if tile one to the left of target is already in position
+        if self.current_position(target_row, target_col-1) == (target_row, target_col-1):
+            #tile one to the left is ok, move to top of next row
+            zero_location = self.current_position(0, 0)
+            if zero_location[0] == target_row:
+                move = "u"
+            else:
+                move = ""
+            zero_location = self.current_position(0, 0)
+            distance_r = self.get_width() - zero_location[1]
+            for dummy_idx in range(distance_r-1):
+                move += "r"
+            self.update_puzzle(move)
+            solution_string += move
+
+        else:
+            #otherwise move 0 to the space one to the left of where the solved tile is
+            move = "ld"
+            self.update_puzzle(move)
+            solution_string += move
+
+
         """
         #move 0 to target tile position
         if solved_tile_location[0] < target_row:
@@ -221,7 +271,7 @@ class Puzzle:
                 solution_string += move
                 zero_location = self.current_position(0, 0)
             while solved_tile_location[1] < zero_location[1]:
-                #can't move straight right... will break assertion                
+                #can't move straight right... will break assertion
                 move = "ur"
                 self.update_puzzle(move)
                 solution_string += move
@@ -334,6 +384,8 @@ for i in range(len(question_8._grid)):
         question_8.set_number(i, j, question_8_input_i[x])
         x += 1
 print question_8
+question_8.solve_interior_tile(3, 1)
+print question_8
 
 #poc_fifteen_gui.FifteenGUI(question_8)
 
@@ -350,24 +402,19 @@ def homework():
     end.append("urullddruld")
     for item in end:
         print front + item
-
-
     #question 5 answer: "rdlurdlu", "drul"
     #question 8 answer: "lddru"
     #question 9 answer: "ruldrdlurdluurddlur"
     #question 10 answer: "urdlurrdluldrruld"
-    
-    
+
+
     p = Puzzle(4, 4)
     for i in range(len(p._grid)):
         for j in range(len(p._grid[0])):
             print "(y:", i, ", x:", j, ")"
             print p.get_number(i, j)
-
     #question 1
     #poc_fifteen_gui.FifteenGUI(p)
-
-
     question_4 = Puzzle(2, 2)
     question_4_input = [0, 2, 3, 1]
     x = 0
@@ -376,7 +423,6 @@ def homework():
             question_4.set_number(i, j, question_4_input[x])
             x += 1
     #poc_fifteen_gui.FifteenGUI(question_4)
-
     question_5 = Puzzle(2, 2)
     question_5_input = [0, 3, 1, 2]
     x = 0
@@ -385,7 +431,6 @@ def homework():
             question_5.set_number(i, j, question_5_input[x])
             x += 1
     #poc_fifteen_gui.FifteenGUI(question_5)
-
     question_8 = Puzzle(4, 4)
     question_8_input = [5, 4, 1, 3, 8, 0, 2, 7, 10, 13, 6, 11, 9, 12, 14, 15]
     x = 0
@@ -394,7 +439,6 @@ def homework():
             question_8.set_number(i, j, question_8_input[x])
             x += 1
     #poc_fifteen_gui.FifteenGUI(question_8)
-
     x = 0
     question_9 = Puzzle(3, 2)
     question_9_input = [1, 2, 0, 4, 3, 5]
@@ -403,7 +447,6 @@ def homework():
             question_9.set_number(i, j, question_9_input[x])
             x += 1
     #poc_fifteen_gui.FifteenGUI(question_9)
-
     x = 0
     question_10 = Puzzle(2, 3)
     question_10_input = [3, 4, 1, 0, 2, 5]
