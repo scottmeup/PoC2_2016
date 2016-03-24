@@ -199,7 +199,7 @@ class Puzzle:
 
 
         #case1: 0 tile is straight below location of tile being solved
-        if solved_tile_location[1] == target_col:
+        if solved_tile_location[1] == target_col and solved_tile_location[0] != target_row:
             count = 0
             while zero_location[0] > solved_tile_location[0]:
                 move = "u"
@@ -218,7 +218,7 @@ class Puzzle:
                 if DEBUG_SIT:
                     print self
         #case2: 0 tile is directly to the right of the tile being solved
-        if solved_tile_location[0] == target_row:
+        elif solved_tile_location[0] == target_row and solved_tile_location[1] < target_col:
             count = 0
             while solved_tile_location[1] < target_col:
                 if DEBUG_SIT:
@@ -238,6 +238,50 @@ class Puzzle:
                 self.update_puzzle(move)
                 solution_string += move
                 count -= 1
+        #case 3: 0 tile is below and to the left of the tile being solved
+        elif zero_location[0] < solved_tile_location[0] and zero_location[1] > solved_tile_location[1]:
+            #first move should be up so we don't break invariance.
+            while zero_location[0] > solved_tile_location[0]:
+                move = "u"
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+            #next move should be into horizontal position
+            while zero_location[1] < solved_tile_location[1]:
+                move = "r"
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+
+            #now lets move the tile into its correct position. Horizontally first
+            while solved_tile_location[1] > target_col:
+                #subcase - tile is on the top row
+                if solved_tile_location[0] == 0:
+                    move = "dllur"
+                    self.update_puzzle(move)
+                    solution_string += move
+                    solved_tile_location = self.current_position(target_row, target_col)
+                #subcase - tile not on the top row
+                else:
+                    move = "ulldr"
+                    self.update_puzzle(move)
+                    solution_string += move
+                    solved_tile_location = self.current_position(target_row, target_col)
+            #then move 0 tile underneath it
+            move = "dl"
+            self.update_puzzle(move)
+            solution_string += move
+            solved_tile_location = self.current_position(target_row, target_col)
+            zero_location = self.current_position(0, 0)
+
+            #finally for case 3, move the tile down. We go around to the left to avoid breaking invariance
+            while solved_tile_location[0] < target_row:
+                move = "ulddr"
+                self.update_puzzle(move)
+                solution_string += move
+                solved_tile_location = self.current_position(target_row, target_col)
+
+        #case 4: 0 tile is below and to the right of the tile being solved
 
         #post cases check really belongs in solve col_0 tile
         #check if tile one to the left of target is already in position
