@@ -488,16 +488,36 @@ class Puzzle:
         #begin moving target tile into horizontal position
         if target_tile_location[0] > target_row:
             #we need to move it down
+            if DEBUG_PT:
+                print "A"
             one = "d"
             three = "u"
         elif target_tile_location[0] < target_row:
             #we need to move it up
+            if DEBUG_PT:
+                print "B"
             one = "u"
             three = "d"
         else:
             #well, we need something for moving stuff around if it's on the same row or col
-            one = "d"
-            three = "u"
+            #if we're at the bottom, don't go down first.
+            if target_tile_location[0] == self.get_height()-1:
+                if DEBUG_PT:
+                    print "C"
+                one = "u"
+                three = "d"
+            #if we're at the top, don't go up first.
+            elif target_tile_location[0] == 0:
+                if DEBUG_PT:
+                    print "D"
+                one = "d"
+                three = "u"
+            #catch all
+            else:
+                if DEBUG_PT:
+                    print "E"
+                one = "d"
+                three = "u"
 
         if target_tile_location[1] > target_col:
             # we need ot move it left
@@ -513,15 +533,31 @@ class Puzzle:
             four = "l"
         #first horizontal move will only be four places
         if target_tile_location[1] != target_col:
-            move = one + two + three + four
+            #slightly hacky way to stop the move going off the board
+            zero_tile_location = self.get_location(0)
+            if zero_tile_location[0] == self.get_height()-1:
+                move = "u" + two + "d" + four
+            elif zero_tile_location[0] == 0:
+                move = "d" + two + "u" + four
+            else:
+                move = one + two + three + four
             move_string += move
+            if DEBUG_PT:
+                print move
             self.update_puzzle(move)
             target_tile_location = self.get_location(target_number)
 
         #now do additional horizontal moves
         while target_tile_location[1] != target_col:
-            move = four + one + two + three + four
+            if zero_tile_location[0] == self.get_height()-1:
+                move = four + "u" + two + "d" + four
+            elif zero_tile_location[0] == 0:
+                move = four + "d" + two + "u" + four
+            else:
+                move = four + one + two + three + four
             move_string += move
+            if DEBUG_PT:
+                print move
             self.update_puzzle(move)
             target_tile_location = self.get_location(target_number)
 
