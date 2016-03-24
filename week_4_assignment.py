@@ -224,15 +224,17 @@ class Puzzle:
                 print "case2"
             count = 0
             while solved_tile_location[1] < target_col:
-                if DEBUG_SIT:
-                    print "case2: count += 1"
-                    print self
-                zero_location = self.current_position(0, 0)
-                solved_tile_location = self.current_position(target_row, target_col)
                 move = "l"
                 self.update_puzzle(move)
                 solution_string += move
                 count += 1
+                zero_location = self.current_position(0, 0)
+                solved_tile_location = self.current_position(target_row, target_col)
+                if DEBUG_SIT:
+                    print "case2: count += 1"
+                    print "solved_tile_location[1]", solved_tile_location[1]
+                    print "target_col", target_col
+                    print self
             while count > 1:
                 if DEBUG_SIT:
                     print "case2: count > 1"
@@ -387,10 +389,13 @@ class Puzzle:
             solution_string += move
 
         else:
+            zero_location = self.current_position(0, 0)
             if DEBUG_SIT:
                 print "post - case 2"
             #otherwise move 0 to the space one to the left of where the solved tile is
-            move = "l"
+            move = ""
+            if zero_location[1] > 0:
+                move = "l"
             self.update_puzzle(move)
             solution_string += move
             zero_location = self.current_position(0, 0)
@@ -517,8 +522,10 @@ class Puzzle:
 #p = Puzzle(4, 4)
 
 bug_one = Puzzle(3, 3, [[8, 7, 6], [5, 4, 3], [2, 1, 0]])
-print bug_one
+#print bug_one
 #bug_one.solve_interior_tile(2, 2)
+bug_two = Puzzle(3, 3, [[3, 2, 1], [6, 5, 4], [7, 0, 8]])
+#bug_two.solve_interior_tile(2, 1)
 
 question_8 = Puzzle(4, 4)
 question_8_input_i = [4, 13, 1, 3, 5, 10, 2, 7, 8, 12, 6, 11, 9, 0, 14, 15]
