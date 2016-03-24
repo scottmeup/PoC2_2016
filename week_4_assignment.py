@@ -525,13 +525,23 @@ class Puzzle:
             self.update_puzzle(move)
             target_tile_location = self.get_location(target_number)
 
-        #first vertical move will only be four places, 0 should currently be one vertical space above or below target tile
+        #first vertical move will only be three places, 0 should currently be one vertical space above or below target tile
         if target_tile_location[0] != target_row:
-            move = three + two + one + four
+            move = one + two + three
             move_string += move
             self.update_puzzle(move)
+            if DEBUG_PT:
+                print move
             target_tile_location = self.get_location(target_number)
 
+        #now do additional vertical moves
+        while target_tile_location[0] != target_row:
+            move = three + four + one + two + three
+            move_string += move
+            self.update_puzzle(move)
+            if DEBUG_PT:
+                print move
+            target_tile_location = self.get_location(target_number)
 
         #end
         return move_string
