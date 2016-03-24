@@ -354,7 +354,7 @@ class Puzzle:
             zero_location = self.current_position(0, 0)
 
             #finally for case 4, move the tile down. We go around to the left to avoid breaking invariance
-            while solved_tile_location[0] < target_row:
+            while solved_tile_location[0] < target_row-1:
                 move = "ulddr"
                 self.update_puzzle(move)
                 solution_string += move
@@ -362,6 +362,11 @@ class Puzzle:
                 if DEBUG_SIT:
                     print "moving target tile down"
                     print self
+            while solved_tile_location[0] == target_row-1:
+                move = "u"
+                self.update_puzzle(move)
+                solution_string += move
+                solved_tile_location = self.current_position(target_row, target_col)
 
         #post cases check really belongs in solve col_0 tile
         #check if tile one to the left of target is already in position

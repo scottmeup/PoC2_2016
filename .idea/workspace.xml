@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="27046917-2ae6-4d27-ad45-3cc3e2c208c1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/week_4_assignment.py" afterPath="$PROJECT_DIR$/week_4_assignment.py" />
     </list>
     <ignored path="PoC2_2016.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +32,8 @@
       <file leaf-file-name="week_4_assignment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.4783654">
-              <caret line="334" column="43" selection-start-line="334" selection-start-column="43" selection-end-line="334" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.6754808">
+              <caret line="368" column="84" selection-start-line="368" selection-start-column="84" selection-end-line="368" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -397,7 +398,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458822700518</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="more or less fixed solve_interior_tile() case 4 &gt;.&lt;">
+      <created>1458822706193</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1458822706193</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -475,8 +482,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.4783654">
-          <caret line="334" column="43" selection-start-line="334" selection-start-column="43" selection-end-line="334" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.6754808">
+          <caret line="368" column="84" selection-start-line="368" selection-start-column="84" selection-end-line="368" selection-end-column="84" />
           <folding />
         </state>
       </provider>
