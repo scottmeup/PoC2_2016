@@ -532,15 +532,21 @@ class Puzzle:
             two = "r"
             four = "l"
         #first horizontal move will only be four places
+
+        #check if zero is directly below / above. Move it one to the left or right if so
+        zero_tile_location = self.get_location(0)
+        if target_tile_location[1] == zero_tile_location[1]:
+            move = four
+
         if target_tile_location[1] != target_col:
             #slightly hacky way to stop the move going off the board
             zero_tile_location = self.get_location(0)
             if zero_tile_location[0] == self.get_height()-1:
-                move = "u" + two + "d" + four
+                move += "u" + two + "d" + four
             elif zero_tile_location[0] == 0:
-                move = "d" + two + "u" + four
+                move += "d" + two + "u" + four
             else:
-                move = one + two + three + four
+                move += one + two + three + four
             move_string += move
             if DEBUG_PT:
                 print move
@@ -558,6 +564,8 @@ class Puzzle:
             move_string += move
             if DEBUG_PT:
                 print move
+                print "target_tile_location", target_tile_location
+                print self
             self.update_puzzle(move)
             target_tile_location = self.get_location(target_number)
 
