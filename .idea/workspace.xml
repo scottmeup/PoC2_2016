@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="27046917-2ae6-4d27-ad45-3cc3e2c208c1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/week_4_assignment.py" afterPath="$PROJECT_DIR$/week_4_assignment.py" />
     </list>
     <ignored path="PoC2_2016.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -424,7 +423,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458835697240</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="position_tile() works moving down + right. &#10;&#10;not up + left.">
+      <created>1458836301037</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1458836301037</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -472,7 +477,8 @@
     <MESSAGE value="Ok, more bugfix for solve_interior_tile() case 4" />
     <MESSAGE value="Fixed some solve_interior_tile() case#2 and post-case #2 out of bounds errors" />
     <MESSAGE value="Added position_tile() function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added position_tile() function" />
+    <MESSAGE value="position_tile() works moving down + right. &#10;&#10;not up + left." />
+    <option name="LAST_COMMIT_MESSAGE" value="position_tile() works moving down + right. &#10;&#10;not up + left." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
