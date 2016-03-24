@@ -12,6 +12,7 @@ except ImportError:
 
 DEBUG_LRI = True
 DEBUG_SIT = True
+DEBUG_UP = True
 
 import poc_fifteen_gui
 
@@ -129,6 +130,8 @@ class Puzzle:
                 self._grid[zero_row + 1][zero_col] = 0
                 zero_row += 1
             else:
+                if DEBUG_UP:
+                    print self
                 assert False, "invalid direction: " + direction
 
     ##################################################################
@@ -196,8 +199,6 @@ class Puzzle:
             print "zero_location", zero_location
         #need some checks here to determine if the position is already solved
 
-
-
         #case1: 0 tile is straight below location of tile being solved
         if solved_tile_location[1] == target_col and solved_tile_location[0] != target_row:
             count = 0
@@ -218,7 +219,9 @@ class Puzzle:
                 if DEBUG_SIT:
                     print self
         #case2: 0 tile is directly to the right of the tile being solved
-        elif solved_tile_location[0] == target_row and solved_tile_location[1] < target_col:
+        elif solved_tile_location[0] == target_row and solved_tile_location[1] < zero_location[1]:
+            if DEBUG_SIT:
+                print "case2"
             count = 0
             while solved_tile_location[1] < target_col:
                 if DEBUG_SIT:
@@ -241,6 +244,8 @@ class Puzzle:
 
         #case 3: 0 tile is below and to the left of the tile being solved
         elif zero_location[0] > solved_tile_location[0] and zero_location[1] < solved_tile_location[1]:
+            if DEBUG_SIT:
+                print "case3"
             #first move should be up so we don't break invariance.
             while zero_location[0] > solved_tile_location[0]:
                 move = "u"
@@ -253,22 +258,35 @@ class Puzzle:
                 self.update_puzzle(move)
                 solution_string += move
                 zero_location = self.current_position(0, 0)
+            if DEBUG_SIT:
+                print "moved 0 to target tile"
+                print self
 
             #now lets move the tile into its correct position. Horizontally first
+            one = ""
+            two = ""
+            three = ""
+            four = ""
             while solved_tile_location[1] > target_col:
                 #subcase - tile is on the top row
                 if solved_tile_location[0] == 0:
-                    move = "dllur"
-                    self.update_puzzle(move)
-                    solution_string += move
-                    solved_tile_location = self.current_position(target_row, target_col)
+                    one = "d"
+                    three = "u"
                 #subcase - tile not on the top row
                 else:
-                    move = "ulldr"
-                    self.update_puzzle(move)
-                    solution_string += move
-                    solved_tile_location = self.current_position(target_row, target_col)
+                    one = "u"
+                    three = "d"
+                #move = "dllur"
+                two = "l"
+                four = "r"
+                move = one + two + two + three + four
+                self.update_puzzle(move)
+                solution_string += move
+                solved_tile_location = self.current_position(target_row, target_col)
             #then move 0 tile underneath it
+            if DEBUG_SIT:
+                print "moved target tile into horizontal position"
+                print self
             move = "dl"
             self.update_puzzle(move)
             solution_string += move
@@ -283,8 +301,10 @@ class Puzzle:
                 solved_tile_location = self.current_position(target_row, target_col)
 
         #case 4: 0 tile is below and to the right of the tile being solved
-        elif zero_location[0] < solved_tile_location[0] and zero_location[1] > solved_tile_location[1]:
+        elif zero_location[0] > solved_tile_location[0] and zero_location[1] > solved_tile_location[1]:
             #first move should be up so we don't break invariance.
+            if DEBUG_SIT:
+                print "case4"
             while zero_location[0] > solved_tile_location[0]:
                 move = "u"
                 self.update_puzzle(move)
@@ -298,21 +318,36 @@ class Puzzle:
                 zero_location = self.current_position(0, 0)
 
             #now lets move the tile into its correct position. Horizontally first
+            one = ""
+            two = ""
+            three = ""
+            four = ""
+            if solved_tile_location[0] == 0:
+                one = "d"
+                three = "u"
+                #subcase - tile not on the top row
+            else:
+                one = "u"
+                three = "d"
+            two = "r"
+            four = "l"
+            move = one + two + two + three + four
             while solved_tile_location[1] < target_col:
                 #subcase - tile is on the top row
-                if solved_tile_location[0] == 0:
-                    move = "drrul"
-                    self.update_puzzle(move)
-                    solution_string += move
-                    solved_tile_location = self.current_position(target_row, target_col)
-                #subcase - tile not on the top row
-                else:
-                    move = "urrdl"
-                    self.update_puzzle(move)
-                    solution_string += move
-                    solved_tile_location = self.current_position(target_row, target_col)
+                #move = "dllur"
+                self.update_puzzle(move)
+                solution_string += move
+                solved_tile_location = self.current_position(target_row, target_col)
+                if DEBUG_SIT:
+                    print "moving target tile horizontally"
+                    print "target_col", target_col
+                    print "solved_tile_location[1]", solved_tile_location[1]
+                    print self
             #then move 0 tile underneath it
-            move = "dl"
+            if DEBUG_SIT:
+                print "moved target tile into horizontal position"
+                print self
+            move = "d" + two
             self.update_puzzle(move)
             solution_string += move
             solved_tile_location = self.current_position(target_row, target_col)
@@ -324,10 +359,15 @@ class Puzzle:
                 self.update_puzzle(move)
                 solution_string += move
                 solved_tile_location = self.current_position(target_row, target_col)
+                if DEBUG_SIT:
+                    print "moving target tile down"
+                    print self
 
         #post cases check really belongs in solve col_0 tile
         #check if tile one to the left of target is already in position
         if self.current_position(target_row, target_col-1) == (target_row, target_col-1):
+            if DEBUG_SIT:
+                print "post - case1"
             #tile one to the left is ok, move to top of next row
             zero_location = self.current_position(0, 0)
             if zero_location[0] == target_row:
@@ -342,10 +382,19 @@ class Puzzle:
             solution_string += move
 
         else:
+            if DEBUG_SIT:
+                print "post - case 2"
             #otherwise move 0 to the space one to the left of where the solved tile is
-            move = "ld"
+            move = "l"
             self.update_puzzle(move)
             solution_string += move
+            zero_location = self.current_position(0, 0)
+            #if we're not on the bottom row or the solved row, move down
+            if zero_location[0] < self.get_height()-1 and zero_location[0] < target_row:
+                print "post - case 2.1"
+                move = "d"
+                self.update_puzzle(move)
+                solution_string += move
 
 
         """
@@ -374,6 +423,8 @@ class Puzzle:
         #cycle target tile down to proper position
         solved_tile_location = self.current_position(target_row, target_col)
         while solved_tile_location != (target_row, target_col):
+            if DEBUG_SIT:
+                print "post - case 3"
             move = "lddru"
             solution_string += move
             self.update_puzzle(move)
@@ -459,6 +510,10 @@ class Puzzle:
 #poc_fifteen_gui.FifteenGUI(Puzzle(4, 4))
 #poc_fifteen_gui.FifteenGUI(Puzzle(2, 2))
 #p = Puzzle(4, 4)
+
+bug_one = Puzzle(3, 3, [[8, 7, 6], [5, 4, 3], [2, 1, 0]])
+print bug_one
+#bug_one.solve_interior_tile(2, 2)
 
 question_8 = Puzzle(4, 4)
 question_8_input_i = [4, 13, 1, 3, 5, 10, 2, 7, 8, 12, 6, 11, 9, 0, 14, 15]
