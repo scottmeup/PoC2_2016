@@ -13,6 +13,7 @@ except ImportError:
 DEBUG_LRI = True
 DEBUG_SIT = True
 DEBUG_UP = True
+DEBUG_PT = True
 
 import poc_fifteen_gui
 
@@ -444,12 +445,113 @@ class Puzzle:
         #assert self.lower_row_invariant(target_row, target_col)
         return solution_string
 
+    def get_location(self, target_number):
+        return self.current_position(target_number / self.get_width(), target_number % self.get_width())
+
+
+    def position_tile(self, target_row, target_col, target_number):
+        target_tile_location = self.get_location(target_number)
+        zero_tile_location = self.get_location(0)
+        move = ""
+        move_string = ""
+        one = ""
+        two = ""
+        three = ""
+        four = ""
+
+        #move zero into correct row
+        if zero_tile_location[0] > target_tile_location[0]:
+            one = "u"
+        if zero_tile_location[0] < target_tile_location[0]:
+            one = "d"
+        #while zero_tile_location[0] != target_tile_location[0]:
+        #move one away
+        while abs(zero_tile_location[0]-target_tile_location[0]) > 1:
+            move_string += one
+            self.update_puzzle(one)
+            zero_tile_location = self.get_location(0)
+        #move zero into correct col
+        if zero_tile_location[1] > target_tile_location[1]:
+            one = "l"
+        if zero_tile_location[1] < target_tile_location[1]:
+            one = "r"
+        #move one away horizontally
+        while abs(zero_tile_location[1]-target_tile_location[1]) > 1:
+        #move on top
+        #while zero_tile_location[1] != target_tile_location[1]):
+            move_string += one
+            self.update_puzzle(one)
+            zero_tile_location = self.get_location(0)
+
+
+        #at this point 0 tile should be 1 space (8 directionally) away from target tile
+        #begin moving target tile into horizontal position
+        if target_tile_location[0] > target_row:
+            #we need to move it down
+            one = "d"
+            three = "u"
+        elif target_tile_location[0] < target_row:
+            #we need to move it up
+            one = "u"
+            three = "d"
+        else:
+            #well, we need something for moving stuff around if it's on the same row or col
+            one = "d"
+            three = "u"
+
+        if target_tile_location[1] > target_col:
+            # we need ot move it left
+            two = "r"
+            four = "l"
+        elif target_tile_location[1] < target_col:
+            # we need to move it right
+            two = "l"
+            four = "r"
+        else:
+            #well, we need something for moving stuff around if it's on the same row or col
+            two = "r"
+            four = "l"
+        #first horizontal move will only be four places
+        if target_tile_location[1] != target_col:
+            move = one + two + three + four
+            move_string += move
+            self.update_puzzle(move)
+            target_tile_location = self.get_location(target_number)
+
+        #now do additional horizontal moves
+        while target_tile_location[1] != target_col:
+            move = four + one + two + three + four
+            move_string += move
+            self.update_puzzle(move)
+            target_tile_location = self.get_location(target_number)
+
+        #first vertical move will only be four places, 0 should currently be one vertical space above or below target tile
+        if target_tile_location[0] != target_row:
+            move = three + two + one + four
+            move_string += move
+            self.update_puzzle(move)
+            target_tile_location = self.get_location(target_number)
+
+
+        #end
+        return move_string
+
+
     def solve_col0_tile(self, target_row):
         """
         Solve tile in column zero on specified row (> 1)
         Updates puzzle and returns a move string
         """
         # replace with your code
+        solution_string = ""
+        solved_tile_location = self.current_position(target_row, 0)
+        zero_location = self.current_position(0, 0)
+        move = ""
+        count = 0
+        if zero_location == (target_row+1, 0):
+            move = "ur"
+            self.update_puzzle(move)
+            return move
         return ""
 
     #############################################################
@@ -536,7 +638,7 @@ for i in range(len(question_8._grid)):
     for j in range(len(question_8._grid[0])):
         question_8.set_number(i, j, question_8_input_i[x])
         x += 1
-#print question_8
+print question_8
 #question_8.solve_interior_tile(3, 1)
 #print question_8
 

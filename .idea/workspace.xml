@@ -32,9 +32,11 @@
       <file leaf-file-name="week_4_assignment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6754808">
-              <caret line="368" column="84" selection-start-line="368" selection-start-column="84" selection-end-line="368" selection-end-column="84" />
-              <folding />
+            <state vertical-scroll-proportion="-9.359243">
+              <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+              <folding>
+                <element signature="e#6718#17861#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -404,21 +406,33 @@
       <option name="project" value="LOCAL" />
       <updated>1458822706193</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Ok, more bugfix for solve_interior_tile() case 4">
+      <created>1458823452899</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1458823452899</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed some solve_interior_tile() case#2 and post-case #2 out of bounds errors">
+      <created>1458825025278</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1458825025278</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="26" y="51" width="1400" height="833" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26067746" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4008097" sideWeight="0.42415318" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31983805" sideWeight="0.42415318" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.47643593" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928476" sideWeight="0.49410897" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4008097" sideWeight="0.57584685" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31983805" sideWeight="0.57584685" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.49116346" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -449,7 +463,9 @@
     <MESSAGE value="solve_inner_tile case 3 done, not tested" />
     <MESSAGE value="small bugfixes, more needed in solve_interior_tile case 3 + 4" />
     <MESSAGE value="more or less fixed solve_interior_tile() case 4 &gt;.&lt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="more or less fixed solve_interior_tile() case 4 &gt;.&lt;" />
+    <MESSAGE value="Ok, more bugfix for solve_interior_tile() case 4" />
+    <MESSAGE value="Fixed some solve_interior_tile() case#2 and post-case #2 out of bounds errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some solve_interior_tile() case#2 and post-case #2 out of bounds errors" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -460,7 +476,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#6718#17861#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -482,9 +500,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6754808">
-          <caret line="368" column="84" selection-start-line="368" selection-start-column="84" selection-end-line="368" selection-end-column="84" />
-          <folding />
+        <state vertical-scroll-proportion="-9.359243">
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+          <folding>
+            <element signature="e#6718#17861#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
