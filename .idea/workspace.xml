@@ -32,8 +32,8 @@
       <file leaf-file-name="week_4_assignment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5672269">
-              <caret line="538" column="23" selection-start-line="538" selection-start-column="23" selection-end-line="538" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.7247899">
+              <caret line="580" column="16" selection-start-line="580" selection-start-column="16" selection-end-line="580" selection-end-column="16" />
               <folding>
                 <element signature="e#6718#17861#0" expanded="false" />
               </folding>
@@ -442,7 +442,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458837712271</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="position_tile()&#10;vertical moves fixed another broken test&#10;need to fix horizontal">
+      <created>1458838915394</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1458838915394</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -492,7 +498,8 @@
     <MESSAGE value="Added position_tile() function" />
     <MESSAGE value="position_tile() works moving down + right. &#10;&#10;not up + left." />
     <MESSAGE value="position_tile()&#10;vertical moves testing alright, need to fix horizontal" />
-    <option name="LAST_COMMIT_MESSAGE" value="position_tile()&#10;vertical moves testing alright, need to fix horizontal" />
+    <MESSAGE value="position_tile()&#10;vertical moves fixed another broken test&#10;need to fix horizontal" />
+    <option name="LAST_COMMIT_MESSAGE" value="position_tile()&#10;vertical moves fixed another broken test&#10;need to fix horizontal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -527,8 +534,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/week_4_assignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5672269">
-          <caret line="538" column="23" selection-start-line="538" selection-start-column="23" selection-end-line="538" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.7247899">
+          <caret line="580" column="16" selection-start-line="580" selection-start-column="16" selection-end-line="580" selection-end-column="16" />
           <folding>
             <element signature="e#6718#17861#0" expanded="false" />
           </folding>

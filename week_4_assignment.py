@@ -571,11 +571,18 @@ class Puzzle:
 
         #first vertical move will only be three places, 0 should currently be one vertical space above or below target tile
         if target_tile_location[0] != target_row:
-            move = one + two + three
+            #hax. Basically to stop running off the board
+            zero_tile_location = self.get_location(0)
+            if zero_tile_location[0] == self.get_height()-1:
+                move = "u" + two + "d"
+            elif zero_tile_location[0] == 0:
+                move = "d" + two + "u"
+            else:
+                move = one + two + three
             move_string += move
-            self.update_puzzle(move)
             if DEBUG_PT:
                 print move
+            self.update_puzzle(move)
             target_tile_location = self.get_location(target_number)
 
         #now do additional vertical moves
