@@ -238,8 +238,9 @@ class Puzzle:
                 self.update_puzzle(move)
                 solution_string += move
                 count -= 1
+
         #case 3: 0 tile is below and to the left of the tile being solved
-        elif zero_location[0] < solved_tile_location[0] and zero_location[1] > solved_tile_location[1]:
+        elif zero_location[0] > solved_tile_location[0] and zero_location[1] < solved_tile_location[1]:
             #first move should be up so we don't break invariance.
             while zero_location[0] > solved_tile_location[0]:
                 move = "u"
@@ -282,6 +283,47 @@ class Puzzle:
                 solved_tile_location = self.current_position(target_row, target_col)
 
         #case 4: 0 tile is below and to the right of the tile being solved
+        elif zero_location[0] < solved_tile_location[0] and zero_location[1] > solved_tile_location[1]:
+            #first move should be up so we don't break invariance.
+            while zero_location[0] > solved_tile_location[0]:
+                move = "u"
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+            #next move should be into horizontal position
+            while zero_location[1] > solved_tile_location[1]:
+                move = "l"
+                self.update_puzzle(move)
+                solution_string += move
+                zero_location = self.current_position(0, 0)
+
+            #now lets move the tile into its correct position. Horizontally first
+            while solved_tile_location[1] < target_col:
+                #subcase - tile is on the top row
+                if solved_tile_location[0] == 0:
+                    move = "drrul"
+                    self.update_puzzle(move)
+                    solution_string += move
+                    solved_tile_location = self.current_position(target_row, target_col)
+                #subcase - tile not on the top row
+                else:
+                    move = "urrdl"
+                    self.update_puzzle(move)
+                    solution_string += move
+                    solved_tile_location = self.current_position(target_row, target_col)
+            #then move 0 tile underneath it
+            move = "dl"
+            self.update_puzzle(move)
+            solution_string += move
+            solved_tile_location = self.current_position(target_row, target_col)
+            zero_location = self.current_position(0, 0)
+
+            #finally for case 4, move the tile down. We go around to the left to avoid breaking invariance
+            while solved_tile_location[0] < target_row:
+                move = "ulddr"
+                self.update_puzzle(move)
+                solution_string += move
+                solved_tile_location = self.current_position(target_row, target_col)
 
         #post cases check really belongs in solve col_0 tile
         #check if tile one to the left of target is already in position
@@ -427,9 +469,9 @@ for i in range(len(question_8._grid)):
     for j in range(len(question_8._grid[0])):
         question_8.set_number(i, j, question_8_input_i[x])
         x += 1
-print question_8
-question_8.solve_interior_tile(3, 1)
-print question_8
+#print question_8
+#question_8.solve_interior_tile(3, 1)
+#print question_8
 
 #poc_fifteen_gui.FifteenGUI(question_8)
 
@@ -499,4 +541,15 @@ def homework():
             question_10.set_number(i, j, question_10_input[x])
             x += 1
     #poc_fifteen_gui.FifteenGUI(question_10)
+
+
+errors
+[-5.0 pts] For obj = Puzzle(3, 3, [[0, 1, 2], [3, 4, 5], [6, 7, 8]]), obj.row0_invariant(0) expected True but received False
+[-4.8 pts] For obj = Puzzle(3, 3, [[4, 3, 2], [1, 0, 5], [6, 7, 8]]), obj.row1_invariant(1) expected True but received False
+[-8.0 pts] For obj = Puzzle(3, 3, [[4, 3, 2], [1, 0, 5], [6, 7, 8]]), obj.solve_2x2() returned incorrect move string ''
+[-8.0 pts] For obj = Puzzle(3, 3, [[3, 2, 1], [6, 5, 4], [0, 7, 8]]), obj.solve_col0_tile(2) returned incorrect move string ''
+[-8.0 pts] For obj = Puzzle(3, 3, [[8, 7, 6], [5, 4, 3], [2, 1, 0]]), obj.solve_interior_tile(2, 2) returned incorrect move string (Exception: AssertionError) "move off grid: d" at line 128, in update_puzzle
+[-25.0 pts] For obj = Puzzle(3, 3, [[8, 7, 6], [5, 4, 3], [2, 1, 0]]), obj.solve_puzzle() returned incorrect move string ''
+[-8.0 pts] For obj = Puzzle(3, 3, [[4, 1, 0], [2, 3, 5], [6, 7, 8]]), obj.solve_row0_tile(2) returned incorrect move string ''
+[-8.0 pts] For obj = Puzzle(3, 3, [[2, 5, 4], [1, 3, 0], [6, 7, 8]]), obj.solve_row1_tile(2) returned incorrect move string ''
 """
